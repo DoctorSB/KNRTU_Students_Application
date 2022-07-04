@@ -1,21 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:kstuhelper/consts/theme_date.dart';
+import 'package:kstuhelper/provider/dark_theme_provider.dart';
+import 'package:provider/provider.dart';
+
+import 'home_page.dart';
 
 void main() => runApp(KSTUhelper());
 
-class KSTUhelper extends StatelessWidget{
-  const KSTUhelper({Key? key}) : super(key: key);
+class KSTUhelper extends StatefulWidget{
+  KSTUhelper({Key? key}) : super(key: key);
+
+  @override
+  State<KSTUhelper> createState() => _KSTUhelperState();
+}
+
+class _KSTUhelperState extends State<KSTUhelper> {
+  DarkThemeProvider themeChengeProvider = DarkThemeProvider();
+
+  void getCurrentAppTheme() async{
+    themeChengeProvider.setDarkTheme = await
+      themeChengeProvider.darkThemePrefs.getTheme();
+  }
+
+  @override
+
+  void initState() {
+    getCurrentAppTheme();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context){
-    bool _isDark = true;
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'KNITU',
-      theme: Styles.themeData(true, context),
-      home: HomeScreen(),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_){
+            return themeChengeProvider;
+          })
+        ],
+      child: Consumer<DarkThemeProvider>( //для consumer нужно 3 аргумента
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'KNITU',
+            theme: Styles.themeData(themeProvider.getDarkTheme, context),
+            home: HomeScreen());
+        }
+      ),
     );
   }
-
 }
