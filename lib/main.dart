@@ -3,7 +3,7 @@ import 'package:kstuhelper/consts/theme_date.dart';
 import 'package:kstuhelper/provider/dark_theme_provider.dart';
 import 'package:provider/provider.dart';
 
-import 'home_page.dart';
+import 'pages/home_page.dart';
 
 void main() => runApp(KSTUhelper());
 
