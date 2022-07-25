@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class UserScreen extends StatelessWidget {
-  const UserScreen({Key? key}) : super(key: key);
+class CategoriesScreen extends StatelessWidget {
+  const CategoriesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
         child:
-        Text("UserScreen"),
+        Text("Categories Screen"),
       ),
     );
   }

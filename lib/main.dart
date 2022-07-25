@@ -4,12 +4,11 @@ import 'package:kstuhelper/provider/dark_theme_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'pages/btm_bar.dart';
-import 'pages/home_page.dart';
 
-void main() => runApp(KSTUhelper());
+void main() => runApp(const KSTUhelper());
 
-class KSTUhelper extends StatefulWidget{
-  KSTUhelper({Key? key}) : super(key: key);
+class KSTUhelper extends StatefulWidget {
+  const KSTUhelper({Key? key}) : super(key: key);
 
   @override
   State<KSTUhelper> createState() => _KSTUhelperState();
@@ -18,35 +17,33 @@ class KSTUhelper extends StatefulWidget{
 class _KSTUhelperState extends State<KSTUhelper> {
   DarkThemeProvider themeChengeProvider = DarkThemeProvider();
 
-  void getCurrentAppTheme() async{
-    themeChengeProvider.setDarkTheme = await
-      themeChengeProvider.darkThemePrefs.getTheme();
+  void getCurrentAppTheme() async {
+    themeChengeProvider.setDarkTheme =
+        await themeChengeProvider.darkThemePrefs.getTheme();
   }
 
   @override
-
   void initState() {
     getCurrentAppTheme();
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_){
-            return themeChengeProvider;
-          })
-        ],
-      child: Consumer<DarkThemeProvider>( //для consumer нужно 3 аргумента
-        builder: (context, themeProvider, child) {
-          return MaterialApp(
+      providers: [
+        ChangeNotifierProvider(create: (_) {
+          return themeChengeProvider;
+        })
+      ],
+      child: Consumer<DarkThemeProvider>(//для consumer нужно 3 аргумента
+          builder: (context, themeProvider, child) {
+        return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'KNITU',
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
             home: const BottomBarScreen());
-        }
-      ),
+      }),
     );
   }
 }
